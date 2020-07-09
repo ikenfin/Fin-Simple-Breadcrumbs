@@ -6,9 +6,9 @@ Text Domain: fin-simple-breadcrumbs
 Version: 1.0.3
 Author: ikenfin
 Author URI: https://ikfi.ru
-Update Server: 
+Update Server:
 Min WP Version: 3.2.1
-Max WP Version: 
+Max WP Version:
 */
 
 /*
@@ -79,9 +79,9 @@ function fin_simple_breadcrumbs_shortcode($atts = array()) {
 
 	$args = shortcode_atts($defaults, $atts);
 
-    global $post;
-	$separator = $opts['separator'];
-	
+  global $post;
+	$separator = $args['separator'];
+
 	$tree_html = '';
 
 	$container_close_tag = '';
@@ -133,7 +133,7 @@ function fin_simple_breadcrumbs_shortcode($atts = array()) {
 				if(count($terms) > 0) {
 					$term = $terms[0];
 					$parents = get_ancestors($term->term_id, $args['custom_taxonomy']);
-					
+
 					foreach($parents as $parent) {
 						$pTerm = get_term($parent);
 						$tree_html .= sprintf($args['link_container'], $args['link_class'], get_term_link($parent), $pTerm->name);
@@ -173,13 +173,13 @@ function fin_simple_breadcrumbs_shortcode($atts = array()) {
 				$page = get_page($customArchivePage);
 				if ($home->ID != $page->ID) {
 					$tree_html .= sprintf($args['link_container'], $args['link_class'], get_permalink($page), get_the_title($page));
-						$tree_html .= $opts['separator'];
+						$tree_html .= $args['separator'];
 				}
 
 				for ($i = count($page->ancestors)-1; $i >= 0; $i--) {
 					if (($home->ID) != ($page->ancestors[$i])) {
 						$tree_html .= sprintf($args['link_container'], $args['link_class'], get_permalink($page->ancestors[$i]), get_the_title($page->ancestors[$i]));
-						$tree_html .= $opts['separator'];
+						$tree_html .= $args['separator'];
 					}
 				}
 			}
@@ -199,7 +199,7 @@ function fin_simple_breadcrumbs_shortcode($atts = array()) {
 			for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
 				if (($home->ID) != ($post->ancestors[$i])) {
 					$tree_html .= sprintf($args['link_container'], $args['link_class'], get_permalink($post->ancestors[$i]), get_the_title($post->ancestors[$i]));
-					$tree_html .= $opts['separator'];
+					$tree_html .= $args['separator'];
 				}
 			}
 
@@ -298,7 +298,7 @@ function fin_simple_breadcrumbs_settings_page() {
 			<tr valign="top">
 				<th><?php echo $tax; ?></th>
 				<td>
-					<?php 
+					<?php
 						wp_dropdown_pages(array(
 							'name' => 'fin_simple_breadcrumbs_taxonomy_custom_pages[' . $tax . ']',
 							'show_option_none' => 'Не выбрано',
