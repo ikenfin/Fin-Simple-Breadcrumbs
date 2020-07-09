@@ -86,7 +86,7 @@ function fin_simple_breadcrumbs_shortcode($atts = array()) {
 
 	$container_close_tag = '';
 
-	$allowed_tags = preg_split("/\, /", get_option('fin_simple_breadcrumbs_allowed_tags', 'ul, ol, nav, div'), -1,PREG_SPLIT_NO_EMPTY);
+	$allowed_tags = preg_split("/\, /", get_option('fin_simple_breadcrumbs_allowed_tags', DEFAULT_FIN_SB_ALLOWED_TAGS), -1,PREG_SPLIT_NO_EMPTY);
 
 	if($args['container'] && in_array($args['container'], $allowed_tags)) {
 		$container_close_tag = '</' . $args['container'] . '>';
